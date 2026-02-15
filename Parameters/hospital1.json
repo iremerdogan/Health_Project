@@ -1,5 +1,12 @@
 {
     "url" : "https://o3.openmrs.org/openmrs/spa/login#",
     "userName" : "admin",
-    "password" : "Admin123"
+    "password" : "Admin123",
+
+    "patient1Name" : "Beatriz",
+    "patient1Surname" : "Gonzalez",
+    "patientPhone": "1111111111",
+
+    "addressopt1": "Kocaeli University",
+    "countryopt1" : "Turkiye"
 }

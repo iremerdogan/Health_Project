@@ -14,7 +14,22 @@ module.exports = {
     loginBtn : '//button[contains(text(),"Log in")]'
   },
 
-    login: function()
+  messages: {
+    popupMsg: '//p[contains(text(),"Welcome")]'
+  },
+
+    closePopup: async function(){
+      try {
+      I.wait(5);
+      const popup = await I.grabNumberOfVisibleElements(this.messages.popupMsg);
+      if (popup != 0)
+      {
+        I.click('//label[@class="cds--radio-button__label"]'); //click the first location
+        I.click('//button[@class="-esm-login__location-picker__confirmButton___mHNSY cds--btn cds--btn--primary"]');
+      }
+    } catch (e) {}},
+
+    login: async function()
     {
       I.amOnPage(parameters['url']);
       I.waitForElement(this.fields.userName, 30);
@@ -24,5 +39,6 @@ module.exports = {
       I.fillField(this.fields.password, parameters['password']);
       I.waitForElement(this.buttons.loginBtn);
       I.click(this.buttons.loginBtn);
+      await this.closePopup();
     },
 }

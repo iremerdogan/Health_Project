@@ -23,6 +23,7 @@ exports.config = {
   include: {
     I: './steps_file.js',
     loginPage: "./Pages/loginPage.js",
+    add_patientPage: "./Pages/add_patientPage.js",
   },
   plugins: {
     htmlReporter: {
