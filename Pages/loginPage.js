@@ -25,7 +25,7 @@ module.exports = {
       if (popup != 0)
       {
         I.click('//label[@class="cds--radio-button__label"]'); //click the first location
-        I.click('//button[@class="-esm-login__location-picker__confirmButton___mHNSY cds--btn cds--btn--primary"]');
+        I.click('//button[@type="submit"]');
       }
     } catch (e) {}},
 

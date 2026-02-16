@@ -1,15 +1,13 @@
 const { I } = inject();
 
-let loginPage = require("../Pages/loginPage");
-
 let parameters = require("../Parameters/hospital1.json");
 
 const {faker} = require('@faker-js/faker');
 
 module.exports = {
-
   
     fields:{
+        patientId: '//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]',
         firstName: 'input#givenName',
         familyName: 'input#familyName',
         birthDate: '//div[@class="cds--date-picker-input__wrapper _7eqzzRk9Nly5JXyWWDkZew== kCZM4leo22nH97QO2RKzlQ=="]',
@@ -18,7 +16,7 @@ module.exports = {
         birthYear: '//span[@data-type="year"]',
         addressCity: 'input#cityVillage',
         addressCountry: 'input#country',
-        patientPhone: 'input#phone' 
+        patientPhone: 'input#phone'
     },
 
     buttons:{
@@ -38,7 +36,7 @@ module.exports = {
 
     patientData: {},
 
-    addPatient: function(){
+    addPatient: async function(){
 
         const firstName = faker.person.firstName('female');
         const lastName = faker.person.lastName();
@@ -53,15 +51,13 @@ module.exports = {
 
         this.patientData.firstName = firstName;
         this.patientData.lastName = lastName;
-        this.patientData.city = city;
-        this.patientData.country = country;
-        this.patientData.birthDate = birthDate;
-        this.patientData.birthDay = birthDay;
-        this.patientData.birthMonth = birthMonth;
-        this.patientData.birthYear = birthYear; 
-        this.patientData.phoneNumber = phoneNumber;
-        
-        console.log(this.patientData);
+        // this.patientData.city = city;
+        // this.patientData.country = country;
+        // this.patientData.birthDate = birthDate;
+        // this.patientData.birthDay = birthDay;
+        // this.patientData.birthMonth = birthMonth;
+        // this.patientData.birthYear = birthYear; 
+        // this.patientData.phoneNumber = phoneNumber;
     
         I.waitForElement(this.buttons.addPatientBtn, 20);
         I.click(this.buttons.addPatientBtn);
@@ -100,6 +96,10 @@ module.exports = {
         I.seeElement(this.messages.successMsg);
         I.waitForElement(this.messages.patientInfo, 10);
         I.seeElement(this.messages.patientInfo);
+        const patientId = await I.grabTextFrom('//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]');
+        this.patientData.patientId = patientId;
+        
+        console.log(this.patientData);
 },
 
 };
