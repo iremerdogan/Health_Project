@@ -1,4 +1,4 @@
-Feature('search a patient');
+Feature('search for a patient');
 
 Before (({loginPage, add_patientPage}) => {
 loginPage.login();

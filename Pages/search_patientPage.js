@@ -13,12 +13,12 @@ module.exports = {
         searchBtn: '//button[@aria-label="Search patient"]'
     },
 
-    searchPatient: function(patientId){
-        I.waitForElement(this.buttons.searchBtn);
-        I.click(this.buttons.searchBtn);
-        I.fillField(this.fields.searchBar, patientId);
-        I.click(`//span[contains(text(),"${patientId}")]`);
-        I.waitForElement(this.fields.patientInfoId, 15);
+    searchPatient: async function(patientId){
+        await I.waitForElement(this.buttons.searchBtn);
+        await I.click(this.buttons.searchBtn);
+        await I.fillField(this.fields.searchBar, patientId);
+        await I.click(`//span[contains(text(),"${patientId}")]`);
+        await I.waitForElement(this.fields.patientInfoId, 15);
     },
 };
 

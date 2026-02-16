@@ -24,7 +24,8 @@ exports.config = {
     I: './steps_file.js',
     loginPage: "./Pages/loginPage.js",
     add_patientPage: "./Pages/add_patientPage.js",
-    search_patientPage: "./Pages/search_patientPage.js"
+    search_patientPage: "./Pages/search_patientPage.js",
+    add_patientVisitPage: "./Pages/add_patientVisitPage.js"
   },
   plugins: {
     htmlReporter: {

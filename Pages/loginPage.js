@@ -20,7 +20,7 @@ module.exports = {
 
     closePopup: async function(){
       try {
-      I.wait(5);
+      I.wait(3);
       const popup = await I.grabNumberOfVisibleElements(this.messages.popupMsg);
       if (popup != 0)
       {

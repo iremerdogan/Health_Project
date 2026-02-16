@@ -44,7 +44,7 @@ module.exports = {
         const country = faker.location.country();
         const phoneNumber = faker.phone.number();
 
-        const birthDate = faker.date.birthdate();
+        const birthDate = faker.date.birthdate({max: 139});
         const birthDay = String(birthDate.getDate()).padStart(2, '0');
         const birthMonth = String(birthDate.getMonth() +1).padStart(2, '0');
         const birthYear = String(birthDate.getFullYear());
@@ -59,7 +59,7 @@ module.exports = {
         // this.patientData.birthYear = birthYear; 
         // this.patientData.phoneNumber = phoneNumber;
     
-        I.waitForElement(this.buttons.addPatientBtn, 20);
+        I.waitForElement(this.buttons.addPatientBtn, 30);
         I.click(this.buttons.addPatientBtn);
         I.waitForElement(this.fields.firstName, 20);
         I.fillField(this.fields.firstName, firstName);
@@ -69,19 +69,21 @@ module.exports = {
         I.click(this.options.genderFemOption);
 
         //choose the birth date
-        I.waitForElement(this.fields.birthDate);
+        await I.waitForElement(this.fields.birthDate);
 
-        I.click(this.fields.birthDay);
-        I.pressKey(['Ctrl', 'a']);
-        I.type(birthDay);
+        await I.click(this.fields.birthDay);
+        await I.pressKey(['Ctrl', 'a']);
+        await I.type(birthDay);
+        await I.wait(0.5);
 
-        I.click(this.fields.birthMonth);
-        I.pressKey(['Ctrl', 'a']);
-        I.type(birthMonth);
+        await I.click(this.fields.birthMonth);
+        await I.pressKey(['Ctrl', 'a']);
+        await I.type(birthMonth);
+        await I.wait(0.5);
         
-        I.click(this.fields.birthYear);
-        I.pressKey(['Ctrl', 'a']);
-        I.type(birthYear);
+        await I.click(this.fields.birthYear);
+        await I.pressKey(['Ctrl', 'a']);
+        await I.type(birthYear);
 
 
         I.waitForElement(this.fields.addressCity);
@@ -92,10 +94,11 @@ module.exports = {
         I.fillField(this.fields.patientPhone, phoneNumber);
         I.waitForElement(this.buttons.registerBtn);
         I.click(this.buttons.registerBtn);
-        I.waitForElement(this.messages.successMsg, 6);
+        I.waitForElement(this.messages.successMsg, 20);
         I.seeElement(this.messages.successMsg);
-        I.waitForElement(this.messages.patientInfo, 10);
+        I.waitForElement(this.messages.patientInfo, 30);
         I.seeElement(this.messages.patientInfo);
+        await I.waitForElement('//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]', 20);
         const patientId = await I.grabTextFrom('//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]');
         this.patientData.patientId = patientId;
         
