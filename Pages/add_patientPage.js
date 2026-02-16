@@ -2,7 +2,9 @@ const { I } = inject();
 
 let loginPage = require("../Pages/loginPage");
 
-let parameters = require("../Parameters/hospital1.json")
+let parameters = require("../Parameters/hospital1.json");
+
+const {faker} = require('@faker-js/faker');
 
 module.exports = {
 
@@ -14,7 +16,7 @@ module.exports = {
         birthDay: '//span[@data-type="day"]',
         birthMonth: '//span[@data-type="month"]',
         birthYear: '//span[@data-type="year"]',
-        addressline1: 'input#address1',
+        addressCity: 'input#cityVillage',
         addressCountry: 'input#country',
         patientPhone: 'input#phone' 
     },
@@ -34,14 +36,39 @@ module.exports = {
         patientInfo: '//span[contains(text(),"Vitals and biometrics")]'
     },
 
+    patientData: {},
+
     addPatient: function(){
+
+        const firstName = faker.person.firstName('female');
+        const lastName = faker.person.lastName();
+        const city = faker.location.city();
+        const country = faker.location.country();
+        const phoneNumber = faker.phone.number();
+
+        const birthDate = faker.date.birthdate();
+        const birthDay = String(birthDate.getDate()).padStart(2, '0');
+        const birthMonth = String(birthDate.getMonth() +1).padStart(2, '0');
+        const birthYear = String(birthDate.getFullYear());
+
+        this.patientData.firstName = firstName;
+        this.patientData.lastName = lastName;
+        this.patientData.city = city;
+        this.patientData.country = country;
+        this.patientData.birthDate = birthDate;
+        this.patientData.birthDay = birthDay;
+        this.patientData.birthMonth = birthMonth;
+        this.patientData.birthYear = birthYear; 
+        this.patientData.phoneNumber = phoneNumber;
+        
+        console.log(this.patientData);
     
         I.waitForElement(this.buttons.addPatientBtn, 20);
         I.click(this.buttons.addPatientBtn);
         I.waitForElement(this.fields.firstName, 20);
-        I.fillField(this.fields.firstName, parameters['patient1Name']);
+        I.fillField(this.fields.firstName, firstName);
         I.waitForElement(this.fields.familyName);
-        I.fillField(this.fields.familyName, parameters['patient1Surname']);
+        I.fillField(this.fields.familyName, lastName);
         I.waitForElement(this.options.genderFemOption);
         I.click(this.options.genderFemOption);
 
@@ -49,24 +76,24 @@ module.exports = {
         I.waitForElement(this.fields.birthDate);
 
         I.click(this.fields.birthDay);
-        I.pressKey('Ctrl', 'a');
-        I.type('08');
+        I.pressKey(['Ctrl', 'a']);
+        I.type(birthDay);
 
         I.click(this.fields.birthMonth);
-        I.pressKey('Ctrl', 'a');
-        I.type('08');
+        I.pressKey(['Ctrl', 'a']);
+        I.type(birthMonth);
         
         I.click(this.fields.birthYear);
-        I.pressKey('Ctrl', 'a');
-        I.type('1992');
+        I.pressKey(['Ctrl', 'a']);
+        I.type(birthYear);
 
 
-        I.waitForElement(this.fields.addressline1);
-        I.fillField(this.fields.addressline1, parameters['addressopt1']);
+        I.waitForElement(this.fields.addressCity);
+        I.fillField(this.fields.addressCity, city);
         I.waitForElement(this.fields.addressCountry);
-        I.fillField(this.fields.addressCountry, parameters['countryopt1']);
+        I.fillField(this.fields.addressCountry, country);
         I.waitForElement(this.fields.patientPhone);
-        I.fillField(this.fields.patientPhone, parameters['patientPhone']);
+        I.fillField(this.fields.patientPhone, phoneNumber);
         I.waitForElement(this.buttons.registerBtn);
         I.click(this.buttons.registerBtn);
         I.waitForElement(this.messages.successMsg, 6);
