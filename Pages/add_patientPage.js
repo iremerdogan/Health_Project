@@ -1,7 +1,5 @@
 const { I } = inject();
 
-let parameters = require("../Parameters/hospital1.json");
-
 const {faker} = require('@faker-js/faker');
 
 module.exports = {
@@ -51,15 +49,9 @@ module.exports = {
 
         this.patientData.firstName = firstName;
         this.patientData.lastName = lastName;
-        // this.patientData.city = city;
-        // this.patientData.country = country;
-        // this.patientData.birthDate = birthDate;
-        // this.patientData.birthDay = birthDay;
-        // this.patientData.birthMonth = birthMonth;
-        // this.patientData.birthYear = birthYear; 
-        // this.patientData.phoneNumber = phoneNumber;
     
-        I.waitForElement(this.buttons.addPatientBtn, 30);
+        I.wait(2);
+        I.waitForElement(this.buttons.addPatientBtn, 25);
         I.click(this.buttons.addPatientBtn);
         I.waitForElement(this.fields.firstName, 20);
         I.fillField(this.fields.firstName, firstName);

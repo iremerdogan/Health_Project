@@ -7,10 +7,11 @@ const {
 setHeadlessWhen(process.env.HEADLESS);
 
 // enable all common plugins https://github.com/codeceptjs/configure#setcommonplugins
-setCommonPlugins();
+
 
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
+  timeout: 60000,
   tests: './Tests/*_test.js',
   output: './output',
   helpers: {
@@ -25,7 +26,8 @@ exports.config = {
     loginPage: "./Pages/loginPage.js",
     add_patientPage: "./Pages/add_patientPage.js",
     search_patientPage: "./Pages/search_patientPage.js",
-    add_patientVisitPage: "./Pages/add_patientVisitPage.js"
+    add_patientVisitPage: "./Pages/add_patientVisitPage.js",
+    add_vitalsPage: "./Pages/add_vitalsPage.js"
   },
   plugins: {
     htmlReporter: {
