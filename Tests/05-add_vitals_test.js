@@ -8,5 +8,5 @@ Before (async ({loginPage, add_patientPage, search_patientPage, add_patientVisit
 });
 
 Scenario('Add vitals of a patient', async ({I, add_vitalsPage}) => {
-    await add_vitalsPage.addVitals();
+await add_vitalsPage.addVitals();
 });

@@ -44,7 +44,7 @@ module.exports = {
             I.click(this.buttons.recordVitals);
         };
 
-        const popup = await I.grabNumberOfVisibleElements('//p[contains(text(),"Would you like to start")]');
+        const popup = await I.grabNumberOfVisibleElements('//div[@class="cds--modal-header"]');
         I.wait(2);
         if (popup > 0){
             I.waitForElement('//button[contains(text(),"Cancel")]', 5);

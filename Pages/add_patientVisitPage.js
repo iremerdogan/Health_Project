@@ -7,7 +7,7 @@ module.exports = {
     },
 
     messages:{
-        noVitalSigns: '//p[contains(text(),"There are no vital signs")]',
+        //noVitalSigns: '//p[contains(text(),"There are no vital signs")]',
         successMsg: '//div[@class="cds--actionable-notification__subtitle"][contains(text(),"Visit started")]',
     },
 
@@ -23,19 +23,18 @@ module.exports = {
 
 
     patientVisit: async function(){
-        const noVitalSigns = await I.grabNumberOfVisibleElements(this.messages.noVitalSigns);
         I.click(this.buttons.actionsBtn);
+        
         const endVstBtn = await I.grabNumberOfVisibleElements('//button//div[contains(text(),"End active visit")]');
-        
-        //if there's a visit, skip the process and switch to add vitals test
-        if (endVstBtn > 0){} 
-        
-        //if the message "no vital signs" appears and there is no visit to end
-        else if (noVitalSigns > 0 & endVstBtn == 0){
+        if (endVstBtn > 0){
+            console.log("There's already a visit. Skipping the process...")
+        } //if there's a visit, skip the rest of the test and switch to add vitals test
 
-        //we can add a new visit as there are no vitals recorded and no visit to end 
+        else {
+        //we can add a new visit as there is no visit to end 
         I.waitForElement(this.buttons.addVisitBtn, 10);
         I.click(this.buttons.addVisitBtn);
+        I.wait(5); //to see the locations clearly
         I.waitForElement(this.fields.cmbLocation, 5);
         I.click(this.fields.cmbLocation);
         I.pressKey(['Control', 'a']);

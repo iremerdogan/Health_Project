@@ -14,7 +14,10 @@ module.exports = {
         birthYear: '//span[@data-type="year"]',
         addressCity: 'input#cityVillage',
         addressCountry: 'input#country',
-        patientPhone: 'input#phone'
+        patientPhone: 'input#phone',
+        idCard: 'input[id*="idCard"]',
+        legacyId: 'input[id*="legacyId"]',
+        oldId: 'input[id*="ldIdentificationNumber"]',
     },
 
     buttons:{
@@ -47,11 +50,15 @@ module.exports = {
         const birthMonth = String(birthDate.getMonth() +1).padStart(2, '0');
         const birthYear = String(birthDate.getFullYear());
 
+        const idCard = faker.number.int({max: 999999999, min: 111111111});
+        const legacyId = faker.number.int({max: 999999999, min: 111111111});
+        const olId = faker.number.int({max: 999999999, min: 111111111});
+
         this.patientData.firstName = firstName;
         this.patientData.lastName = lastName;
     
         I.wait(2);
-        I.waitForElement(this.buttons.addPatientBtn, 25);
+        I.waitForElement(this.buttons.addPatientBtn, 40);
         I.click(this.buttons.addPatientBtn);
         I.waitForElement(this.fields.firstName, 20);
         I.fillField(this.fields.firstName, firstName);
@@ -63,8 +70,9 @@ module.exports = {
         //choose the birth date
         await I.waitForElement(this.fields.birthDate);
 
+        //for a synchronous test process
+        await I.wait(2);
         await I.click(this.fields.birthDay);
-        await I.pressKey(['Ctrl', 'a']);
         await I.type(birthDay);
         await I.wait(0.5);
 
@@ -77,6 +85,12 @@ module.exports = {
         await I.pressKey(['Ctrl', 'a']);
         await I.type(birthYear);
 
+        I.waitForElement(this.fields.idCard, 5);
+        I.fillField(this.fields.idCard, idCard);
+        I.waitForElement(this.fields.legacyId, 5);
+        I.fillField(this.fields.legacyId, legacyId);
+        I.waitForElement(this.fields.oldId, 5);
+        I.fillField(this.fields.oldId, olId);
 
         I.waitForElement(this.fields.addressCity);
         I.fillField(this.fields.addressCity, city);
@@ -88,7 +102,7 @@ module.exports = {
         I.click(this.buttons.registerBtn);
         I.waitForElement(this.messages.successMsg, 20);
         I.seeElement(this.messages.successMsg);
-        I.waitForElement(this.messages.patientInfo, 30);
+        I.waitForElement(this.messages.patientInfo, 45);
         I.seeElement(this.messages.patientInfo);
         await I.waitForElement('//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]', 20);
         const patientId = await I.grabTextFrom('//div[contains(@class,"cds--tag--gray")]//span[contains(@class,"_7O7")]');

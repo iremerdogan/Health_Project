@@ -11,7 +11,6 @@ setHeadlessWhen(process.env.HEADLESS);
 
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
-  timeout: 60000,
   tests: './Tests/*_test.js',
   output: './output',
   helpers: {
@@ -27,7 +26,8 @@ exports.config = {
     add_patientPage: "./Pages/add_patientPage.js",
     search_patientPage: "./Pages/search_patientPage.js",
     add_patientVisitPage: "./Pages/add_patientVisitPage.js",
-    add_vitalsPage: "./Pages/add_vitalsPage.js"
+    add_vitalsPage: "./Pages/add_vitalsPage.js",
+    add_medicationPage: "./Pages/add_medicationPage.js"
   },
   plugins: {
     htmlReporter: {

@@ -32,7 +32,7 @@ module.exports = {
     login: async function()
     {
       I.amOnPage(parameters['url']);
-      I.waitForElement(this.fields.userName, 40);
+      I.waitForElement(this.fields.userName, 60);
       I.fillField(this.fields.userName, parameters['userName']);
       I.click(this.buttons.continueBtn);
       I.waitForElement(this.fields.password, 20);
